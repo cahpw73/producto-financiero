@@ -10,6 +10,7 @@ import { ProductSearchComponent } from './components/product-search/product-sear
 import { FormsModule } from '@angular/forms';
 import { ProductPaginationComponent } from './components/product-pagination/product-pagination.component';
 import { LogoContainerComponent } from './components/logo-container/logo-container.component';
+import { DeleteProductModalComponent } from './components/delete-product-modal/delete-product-modal.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { LogoContainerComponent } from './components/logo-container/logo-contain
     ProductFormComponent,
     ProductSearchComponent,
     ProductPaginationComponent,
-    LogoContainerComponent
+    LogoContainerComponent,
+    DeleteProductModalComponent
   ],
   imports: [
     BrowserModule,

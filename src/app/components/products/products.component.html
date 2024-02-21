@@ -25,6 +25,7 @@
                     <th class="list-item">Descripción</th>
                     <th class="list-item">Fecha de Liberación</th>
                     <th class="list-item">Fecha de Reestructuración</th>
+                    <th class="list-item"></th>
                 </tr>
             </thead>
             <tbody>
@@ -32,8 +33,17 @@
                     <td><img [src]="product.logo" alt="Logo del producto" class="product-logo"></td>                
                     <td class="list-item">{{ product.name }}</td>
                     <td class="list-item">{{ product.description }}</td>
-                    <td class="list-item">{{ product.date_release | date }}</td>
-                    <td class="list-item">{{ product.date_revision | date}}</td>
+                    <td class="list-item">{{ product.date_release | date:'dd/MM/yyyy' }}</td>
+                    <td class="list-item">{{ product.date_revision | date:'dd/MM/yyyy' }}</td>
+                    <td class="list-item">
+                        <div class="dropdown-btn">
+                            <button class="dropBtn">&#8942; _________</button>
+                            <div class="dropdown-content">
+                                <a href="#" (click)="editProduct(product, $event)">Editar</a>
+                                <a href="#" (click)="showDeleteModal(product)">Eliminar</a>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
             </tbody> 
         </table>
@@ -56,4 +66,10 @@
             </div>
         </div>
     </div>
+    <app-delete-product-modal 
+        *ngIf="showDeleteModalFlag" 
+        [productName]="productNameToDelete" 
+        (cancelClicked)="hideDeleteModal()" 
+        (deleteClicked)="deleteProduct()">
+    </app-delete-product-modal>
 </div>

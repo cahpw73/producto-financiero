@@ -40,7 +40,7 @@ export class ProductService {
 
   deleteProduct(productId: string, authorId: number): Observable<void> {
     const headers = new HttpHeaders().set('authorId', authorId.toString());
-    const url = `${this.baseUrl}/${productId}`;
+    const url = `${this.baseUrl}?id=${productId}`;
     return this.http.delete<void>(url, { headers }).pipe(
       catchError(this.handleError)
     );

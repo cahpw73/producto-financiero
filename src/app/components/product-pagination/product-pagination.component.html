@@ -3,11 +3,10 @@
         Página {{ currentPage }} de {{ totalPages }}
     </div>
     <div class="pagination-controls">
-        <button class="pagination-button" [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)">Anterior</button>
-        <button class="pagination-button" [disabled]="currentPage === totalPages" (click)="onPageChange(currentPage + 1)">Siguiente</button>
+        <button class="pagination-button" [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)">&lt;</button>
+        <button class="pagination-button" [disabled]="currentPage === totalPages" (click)="onPageChange(currentPage + 1)">&gt;</button>
     </div>
     <div class="product-per-page">
-        <label for="productsPerPage">Productos por página:</label>
         <select id="productsPerPage" (change)="onProductsPerPageChange($event)">
             <option value="5">5</option>
             <option value="10">10</option>
