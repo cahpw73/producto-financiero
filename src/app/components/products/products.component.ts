@@ -84,24 +84,26 @@ export class ProductsComponent implements OnInit {
     this.filteredProducts = this.products.slice(startIndex, endIndex);
   }
 
-  // Método para mostrar el modal y guardar el nombre del producto
   showDeleteModal(product: Product): void {
     this.productNameToDelete = product.name;
     this.showDeleteModalFlag = true;
     this.productSelected = product;
   }
 
-  // Método para ocultar el modal
   hideDeleteModal(): void {
     this.showDeleteModalFlag = false;
   }
 
-  // Método para eliminar el producto
   deleteProduct(): void {
-    // Llamar al servicio para eliminar el producto
-    this.productService.deleteProduct(this.productSelected.id, this.authorId).subscribe(() => {
-      this.showDeleteModalFlag = false;
-      this.loadProducts();
-    });
+    this.productService.deleteProduct(this.productSelected.id, this.authorId).subscribe(
+      (response) => {
+        console.log(response);
+        this.showDeleteModalFlag = false;
+        this.loadProducts();
+      },
+      (error) => {
+        console.error('Error al eliminar el producto: ', error);
+      }
+    );
   }
 }

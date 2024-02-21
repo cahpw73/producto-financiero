@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Product } from '../models/product.model';
 
+import { of } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -38,13 +40,16 @@ export class ProductService {
     );
   }
 
-  deleteProduct(productId: string, authorId: number): Observable<void> {
+  deleteProduct(productId: string, authorId: number): Observable<any> {
     const headers = new HttpHeaders().set('authorId', authorId.toString());
     const url = `${this.baseUrl}?id=${productId}`;
-    return this.http.delete<void>(url, { headers }).pipe(
-      catchError(this.handleError)
+    return this.http.delete(url, { headers, responseType: 'text' }).pipe(
+      catchError(error => {
+        console.error('Error al eliminar el producto:', error);
+        return of(null);
+      })
     );
-  }
+}
 
   checkProductId(productId: string): Observable<boolean> {
     const url = `${this.baseUrl}/verification?id=${productId}`;
