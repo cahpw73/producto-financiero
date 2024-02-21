@@ -1,16 +1,30 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ProductsComponent } from './components/products/products.component';
+import { ProductFormComponent } from './components/product-form/product-form.component';
+import { ProductSearchComponent } from './components/product-search/product-search.component';
+import { FormsModule } from '@angular/forms';
+import { ProductPaginationComponent } from './components/product-pagination/product-pagination.component';
+import { LogoContainerComponent } from './components/logo-container/logo-container.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ProductsComponent,
+    ProductFormComponent,
+    ProductSearchComponent,
+    ProductPaginationComponent,
+    LogoContainerComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     provideClientHydration()

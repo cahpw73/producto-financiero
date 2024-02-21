@@ -1,0 +1,9 @@
+.background-image {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.background-image img {
+    max-width: 100%;
+    height: auto;
+}

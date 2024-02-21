@@ -1,0 +1,59 @@
+<app-logo-container [imageUrl]="'assets/images/banco-pichincha.png'" [altText]="'Banco Pichincha'"></app-logo-container>
+
+<div class="product-list">    
+    <div class="operation-header-container">
+        <div class="search-container">
+            <app-product-search (searchChange)="onSearchChange($event)"></app-product-search>
+        </div>
+        <div class="product-form-button-container">
+            <button class="product-form-button" routerLink="/products/form">Agregar</button>
+        </div>        
+    </div>
+    <div class="loading" *ngIf="isLoading">Cargando productos...</div>
+    <div 
+        class="empty-list"
+        *ngIf="!isLoading && filteredProducts.length === 0">
+        No se encontraron productos.
+    </div>
+
+    <div class="table-container">
+        <table class="table" *ngIf="!isLoading && filteredProducts.length > 0">
+            <thead>
+                <tr>
+                    <th class="list-item">Logo</th>
+                    <th class="list-item">Nombre del Producto</th>
+                    <th class="list-item">Descripción</th>
+                    <th class="list-item">Fecha de Liberación</th>
+                    <th class="list-item">Fecha de Reestructuración</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of filteredProducts" class="list-group-item">
+                    <td><img [src]="product.logo" alt="Logo del producto" class="product-logo"></td>                
+                    <td class="list-item">{{ product.name }}</td>
+                    <td class="list-item">{{ product.description }}</td>
+                    <td class="list-item">{{ product.date_release | date }}</td>
+                    <td class="list-item">{{ product.date_revision | date}}</td>
+                </tr>
+            </tbody> 
+        </table>
+        <div class="operation-bottom-contaier">
+            <div class="quantity-product" *ngIf="quantityProducts">
+                <span *ngIf="quantityProducts && quantityProducts > 1">
+                    <label>{{ quantityProducts }} Resultados</label>
+                </span>
+                <span *ngIf="quantityProducts && quantityProducts === 1">
+                    <label>{{ quantityProducts }} Resultado</label>
+                </span>
+            </div>
+            <div class="product-pagination-container">
+                <app-product-pagination 
+                    [totalProducts]="products.length"
+                    [productsPerPage]="productsPerPage"
+                    (productsPerPageChange)="onProductsPerPageChange($event)"
+                    (pageChange)="onPageChange($event)"
+                ></app-product-pagination>
+            </div>
+        </div>
+    </div>
+</div>
