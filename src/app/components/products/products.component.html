@@ -37,8 +37,8 @@
                 </tr>
             </tbody> 
         </table>
-        <div class="operation-bottom-contaier">
-            <div class="quantity-product" *ngIf="quantityProducts">
+        <div class="operation-bottom-contaier" *ngIf="quantityProducts">
+            <div class="quantity-product">
                 <span *ngIf="quantityProducts && quantityProducts > 1">
                     <label>{{ quantityProducts }} Resultados</label>
                 </span>

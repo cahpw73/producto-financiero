@@ -42,9 +42,9 @@ export class ProductsComponent implements OnInit {
   }
 
   onSearchChange(searchTerm: string): void {
-    this.filteredProducts = this.products.filter(product => 
+    this.filteredProducts = this.products.filter(product =>
         product.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+    );
     this.quantityProducts = this.filteredProducts.length;
   }
 
