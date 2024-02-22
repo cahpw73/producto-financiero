@@ -48,10 +48,9 @@ export class ProductFormComponent implements OnInit {
   }
 
   onSubmit() {
-    const authorId: number = 123;
     if (this.isEditing) {
       console.log("Updating Product");
-      this.productService.updateProduct(this.product, authorId).subscribe(
+      this.productService.updateProduct(this.product).subscribe(
         (response) => {
           console.log('Producto actualizado:', response);
           this.router.navigate(['/']);
@@ -67,7 +66,7 @@ export class ProductFormComponent implements OnInit {
           if (exists) {
             console.warn('El ID ya está en uso. Por favor, elija otro.');
           } else {
-            this.productService.createProduct(this.product, authorId).subscribe(
+            this.productService.createProduct(this.product).subscribe(
               (response) => {
                 console.log('Producto creado:', response);
                 this.router.navigate(['/']);

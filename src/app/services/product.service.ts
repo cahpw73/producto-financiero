@@ -11,6 +11,7 @@ import { of } from 'rxjs';
 export class ProductService {
 
   private baseUrl = 'https://tribu-ti-staffing-desarrollo-afangwbmcrhucqfh.z01.azurefd.net/ipf-msa-productosfinancieros/bp/products';
+  private authorId : number = 123;
 
   constructor(private http: HttpClient) { }
 
@@ -19,29 +20,29 @@ export class ProductService {
     return throwError(() => new Error('Something went wrong'));
   }
 
-  getAllProducts(authorId: number): Observable<Product[]> {
-    const headers = new HttpHeaders().set('authorId', authorId.toString());
+  getAllProducts(): Observable<Product[]> {
+    const headers = new HttpHeaders().set('authorId', this.authorId.toString());
     return this.http.get<Product[]>(this.baseUrl, { headers }).pipe(
       catchError(this.handleError)
     );
   }
 
-  createProduct(product: Product, authorId: number): Observable<Product> {
-    const headers = new HttpHeaders().set('authorId', authorId.toString());
+  createProduct(product: Product): Observable<Product> {
+    const headers = new HttpHeaders().set('authorId', this.authorId.toString());
     return this.http.post<Product>(this.baseUrl, product, { headers }).pipe(
       catchError(this.handleError)
     );
   }
 
-  updateProduct(product: Product, authorId: number): Observable<Product> {
-    const headers = new HttpHeaders().set('authorId', authorId.toString());
+  updateProduct(product: Product): Observable<Product> {
+    const headers = new HttpHeaders().set('authorId', this.authorId.toString());
     return this.http.put<Product>(this.baseUrl, product, { headers }).pipe(
       catchError(this.handleError)
     );
   }
 
-  deleteProduct(productId: string, authorId: number): Observable<any> {
-    const headers = new HttpHeaders().set('authorId', authorId.toString());
+  deleteProduct(productId: string): Observable<any> {
+    const headers = new HttpHeaders().set('authorId', this.authorId.toString());
     const url = `${this.baseUrl}?id=${productId}`;
     return this.http.delete(url, { headers, responseType: 'text' }).pipe(
       catchError(error => {

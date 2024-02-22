@@ -16,7 +16,6 @@ export class ProductsComponent implements OnInit {
   quantityProducts: number = 0;
   productsPerPage: number = 5;
   currentPage: number = 1;
-  private authorId: number = 123;
   showDeleteModalFlag = false;
   productNameToDelete: string | undefined;
 
@@ -40,7 +39,7 @@ export class ProductsComponent implements OnInit {
 
   loadProducts(): void {
     this.isLoading = true;
-    this.productService.getAllProducts(this.authorId).subscribe(
+    this.productService.getAllProducts().subscribe(
       (products: Product[]) => {
         this.products = products;
         this.updateFilteredProducts();
@@ -102,7 +101,7 @@ export class ProductsComponent implements OnInit {
   }
 
   deleteProduct(): void {
-    this.productService.deleteProduct(this.productSelected.id, this.authorId).subscribe(
+    this.productService.deleteProduct(this.productSelected.id).subscribe(
       (response) => {
         console.log(response);
         this.showDeleteModalFlag = false;
