@@ -12,8 +12,8 @@ Run `npm run start` for a dev server. Navigate to `http://localhost:4200/`. The 
 
 ## Running unit tests
 
-Run `npm test` to execute the unit tests via [Jest](https://jestjs.io/).
+Run `npm run test` to execute the unit tests via [Jest](https://jestjs.io/).
 
 ## Running unit test coverage
 
-Run `npm test coverage` to execute the unit tests coverage.
+Run `npm run test:coverage` to execute the unit tests coverage.
