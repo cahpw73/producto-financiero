@@ -55,9 +55,14 @@ export class ProductsComponent implements OnInit {
   }
 
   onSearchChange(searchTerm: string): void {
-    this.filteredProducts = this.products.filter(product =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    if (searchTerm) {
+      this.filteredProducts = this.products.filter(product =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    } else {
+      this.updateFilteredProducts();
+    }
+    
     this.quantityProducts = this.filteredProducts.length;
   }
 
@@ -65,11 +70,13 @@ export class ProductsComponent implements OnInit {
     this.productsPerPage = productsPerPage;
     this.currentPage = 1;
     this.updateFilteredProducts();
+    this.quantityProducts = this.filteredProducts.length;
   }
 
   onPageChange(page: number): void {
     this.currentPage = page;
     this.updateFilteredProducts();
+    this.quantityProducts = this.filteredProducts.length;
   }
 
   editProduct(product: Product, event: Event): void {

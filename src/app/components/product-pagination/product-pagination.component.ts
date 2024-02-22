@@ -16,6 +16,7 @@ export class ProductPaginationComponent {
   constructor() { }
 
   onPageChange(page: number): void {
+    this.currentPage = page;
     this.pageChange.emit(page);
   }
 

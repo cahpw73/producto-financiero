@@ -62,15 +62,26 @@ export class ProductFormComponent implements OnInit {
       )
     } else {
       console.log("Creating Product");
-      this.productService.createProduct(this.product, authorId).subscribe(
-        (response) => {
-          console.log('Producto creado:', response);
-          this.router.navigate(['/']);
+      this.productService.checkProductId(this.product.id).subscribe(
+        (exists) => {
+          if (exists) {
+            console.warn('El ID ya está en uso. Por favor, elija otro.');
+          } else {
+            this.productService.createProduct(this.product, authorId).subscribe(
+              (response) => {
+                console.log('Producto creado:', response);
+                this.router.navigate(['/']);
+              },
+              (error) => {
+                console.error(' Error al crear el producto:', error);
+              }
+            );
+          }
         },
         (error) => {
-          console.error(' Error al crear el producto:', error);
+          console.error('Error al verificar el ID del producto:', error);
         }
-      )
+      );
     }
   }
 
@@ -86,6 +97,8 @@ export class ProductFormComponent implements OnInit {
 
   getCurrentDate(): string {
     const currentDate = new Date();
+    const utcOffset = currentDate.getTimezoneOffset();
+    currentDate.setMinutes(currentDate.getMinutes() - utcOffset);
     return currentDate.toISOString().split('T')[0];
   }
 }
