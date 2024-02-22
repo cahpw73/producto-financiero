@@ -9,7 +9,6 @@ describe('ProductFormComponent', () => {
   let routeMock: any;
 
   beforeEach(() => {
-    // Configurar los mocks necesarios
     productServiceMock = {
       updateProduct: jest.fn().mockReturnValue(of({})),
       checkProductId: jest.fn().mockReturnValue(of(false)),
@@ -22,11 +21,17 @@ describe('ProductFormComponent', () => {
 
     routeMock = {
       paramMap: of({
-        get: jest.fn().mockReturnValue('your-value')
+        get: jest.fn().mockReturnValue(JSON.stringify({
+          id: '1',
+          name: 'Test Product',
+          description: 'Test Description',
+          logo: 'test.png',
+          date_release: new Date(),
+          date_revision: new Date()
+        }))
       })
     };
 
-    // Crear una instancia de ProductFormComponent con los mocks
     component = new ProductFormComponent(
       productServiceMock as any,
       routerMock as any,
@@ -35,36 +40,43 @@ describe('ProductFormComponent', () => {
   });
 
   it('should update product and navigate when onSubmit is called while editing', () => {
-    // Simular modo de edición
     component.isEditing = true;
-    // Simular llamada a onSubmit
     component.onSubmit();
-    // Verificar que productService.updateProduct y router.navigate hayan sido llamados
+
     expect(productServiceMock.updateProduct).toHaveBeenCalledWith(component.product);
     expect(routerMock.navigate).toHaveBeenCalledWith(['/']);
   });
 
   it('should create product and navigate when onSubmit is called while not editing', () => {
-    // Simular llamada a onSubmit
     component.onSubmit();
-    // Verificar que productService.checkProductId y productService.createProduct hayan sido llamados
+
     expect(productServiceMock.checkProductId).toHaveBeenCalledWith(component.product.id);
     expect(productServiceMock.createProduct).toHaveBeenCalledWith(component.product);
     expect(routerMock.navigate).toHaveBeenCalledWith(['/']);
   });
 
-  // it('should update product date_revision when onReleaseDateChange is called', () => {
-  //   // Simular llamada a onReleaseDateChange
-  //   component.product.date_release = new Date('2024-02-21T00:00:00.000Z');
-  //   component.onReleaseDateChange();
-  //   // Verificar que product.date_revision haya sido actualizado correctamente
-  //   expect(component.product.date_revision).toEqual(new Date('2024-02-21T00:00:00.000Z'));
-  // });
-
   it('should return current date in ISO format when getCurrentDate is called', () => {
-    // Simular llamada a getCurrentDate
     const currentDate = component.getCurrentDate();
-    // Verificar que la fecha devuelta sea la fecha actual en formato ISO
+
     expect(currentDate).toEqual(new Date().toISOString().split('T')[0]);
+  });
+
+  it('should set product when data is provided in paramMap', () => {
+    component.ngOnInit();
+
+    expect(component.isEditing).toBe(true);
+    expect(component.product.id).toBe('1');
+    expect(component.product.name).toBe('Test Product');
+  });
+
+  it('should not set product when no data is provided in paramMap', () => {
+    routeMock.paramMap = of({
+      get: jest.fn().mockReturnValue(null)
+    });
+
+    component.ngOnInit();
+
+    expect(component.isEditing).toBe(false);
+    expect(component.product.id).toBeFalsy();
   });
 });

@@ -28,7 +28,8 @@
             </thead>
             <tbody>
                 <tr *ngFor="let product of filteredProducts" class="list-group-item">
-                    <td class="logo-container"><img [src]="product.logo" alt="Logo del producto" class="product-logo"></td>
+                    <td class="logo-container"><img [src]="product.logo" alt="Logo del producto" class="product-logo">
+                    </td>
                     <td class="list-item">{{ product.name }}</td>
                     <td class="list-item">{{ product.description }}</td>
                     <td class="list-item">{{ product.date_release | date:'dd/MM/yyyy':'UTC' }}</td>

@@ -49,10 +49,8 @@ export class ProductFormComponent implements OnInit {
 
   onSubmit() {
     if (this.isEditing) {
-      console.log("Updating Product");
       this.productService.updateProduct(this.product).subscribe(
         (response) => {
-          console.log('Producto actualizado:', response);
           this.router.navigate(['/']);
         },
         (error) => {
@@ -60,7 +58,6 @@ export class ProductFormComponent implements OnInit {
         }
       )
     } else {
-      console.log("Creating Product");
       this.productService.checkProductId(this.product.id).subscribe(
         (exists) => {
           if (exists) {
@@ -68,7 +65,6 @@ export class ProductFormComponent implements OnInit {
           } else {
             this.productService.createProduct(this.product).subscribe(
               (response) => {
-                console.log('Producto creado:', response);
                 this.router.navigate(['/']);
               },
               (error) => {

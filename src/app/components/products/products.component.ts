@@ -104,7 +104,6 @@ export class ProductsComponent implements OnInit {
   deleteProduct(): void {
     this.productService.deleteProduct(this.productSelected.id).subscribe(
       (response) => {
-        console.log(response);
         this.showDeleteModalFlag = false;
         this.loadProducts();
       },
