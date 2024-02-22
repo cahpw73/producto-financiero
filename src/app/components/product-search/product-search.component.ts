@@ -10,7 +10,7 @@ export class ProductSearchComponent {
   @Output() searchChange = new EventEmitter<string>();
   searchTerm: string = '';
 
-  constructor() {}
+  constructor() { }
 
   performSearch(): void {
     this.searchChange.emit(this.searchTerm);

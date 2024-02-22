@@ -32,7 +32,7 @@ export class ProductsComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadProducts();
@@ -56,7 +56,7 @@ export class ProductsComponent implements OnInit {
 
   onSearchChange(searchTerm: string): void {
     this.filteredProducts = this.products.filter(product =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      product.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
     this.quantityProducts = this.filteredProducts.length;
   }

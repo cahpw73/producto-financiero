@@ -18,7 +18,7 @@ export class ProductService {
     console.error('An error ocurred:', error);
     return throwError(() => new Error('Something went wrong'));
   }
-  
+
   getAllProducts(authorId: number): Observable<Product[]> {
     const headers = new HttpHeaders().set('authorId', authorId.toString());
     return this.http.get<Product[]>(this.baseUrl, { headers }).pipe(
@@ -49,7 +49,7 @@ export class ProductService {
         return of(null);
       })
     );
-}
+  }
 
   checkProductId(productId: string): Observable<boolean> {
     const url = `${this.baseUrl}/verification?id=${productId}`;
