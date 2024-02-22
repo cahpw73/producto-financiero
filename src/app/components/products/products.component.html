@@ -1,18 +1,16 @@
 <app-logo-container [imageUrl]="'assets/images/banco-pichincha.png'" [altText]="'Banco Pichincha'"></app-logo-container>
 
-<div class="product-list">    
+<div class="product-list">
     <div class="operation-header-container">
         <div class="search-container">
             <app-product-search (searchChange)="onSearchChange($event)"></app-product-search>
         </div>
         <div class="product-form-button-container">
             <button class="product-form-button" routerLink="/products/form">Agregar</button>
-        </div>        
+        </div>
     </div>
     <div class="loading" *ngIf="isLoading">Cargando productos...</div>
-    <div 
-        class="empty-list"
-        *ngIf="!isLoading && filteredProducts.length === 0">
+    <div class="empty-list" *ngIf="!isLoading && filteredProducts.length === 0">
         No se encontraron productos.
     </div>
 
@@ -30,11 +28,11 @@
             </thead>
             <tbody>
                 <tr *ngFor="let product of filteredProducts" class="list-group-item">
-                    <td><img [src]="product.logo" alt="Logo del producto" class="product-logo"></td>                
+                    <td><img [src]="product.logo" alt="Logo del producto" class="product-logo"></td>
                     <td class="list-item">{{ product.name }}</td>
                     <td class="list-item">{{ product.description }}</td>
-                    <td class="list-item">{{ product.date_release | date:'dd/MM/yyyy' }}</td>
-                    <td class="list-item">{{ product.date_revision | date:'dd/MM/yyyy' }}</td>
+                    <td class="list-item">{{ product.date_release | date:'dd/MM/yyyy':'UTC' }}</td>
+                    <td class="list-item">{{ product.date_revision | date:'dd/MM/yyyy':'UTC' }}</td>
                     <td class="list-item">
                         <div class="dropdown-btn">
                             <button class="dropBtn">&#8942; _________</button>
@@ -45,7 +43,7 @@
                         </div>
                     </td>
                 </tr>
-            </tbody> 
+            </tbody>
         </table>
         <div class="operation-bottom-contaier" *ngIf="quantityProducts">
             <div class="quantity-product">
@@ -57,19 +55,13 @@
                 </span>
             </div>
             <div class="product-pagination-container">
-                <app-product-pagination 
-                    [totalProducts]="products.length"
-                    [productsPerPage]="productsPerPage"
+                <app-product-pagination [totalProducts]="products.length" [productsPerPage]="productsPerPage"
                     (productsPerPageChange)="onProductsPerPageChange($event)"
-                    (pageChange)="onPageChange($event)"
-                ></app-product-pagination>
+                    (pageChange)="onPageChange($event)"></app-product-pagination>
             </div>
         </div>
     </div>
-    <app-delete-product-modal 
-        *ngIf="showDeleteModalFlag" 
-        [productName]="productNameToDelete" 
-        (cancelClicked)="hideDeleteModal()" 
-        (deleteClicked)="deleteProduct()">
+    <app-delete-product-modal *ngIf="showDeleteModalFlag" [productName]="productNameToDelete"
+        (cancelClicked)="hideDeleteModal()" (deleteClicked)="deleteProduct()">
     </app-delete-product-modal>
 </div>

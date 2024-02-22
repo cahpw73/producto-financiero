@@ -26,25 +26,25 @@ export class ProductFormComponent implements OnInit {
     private productService: ProductService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-      this.route.paramMap.subscribe(params => {
-        const data = params.get('data');
-        if (data) {
-          const parsedData = JSON.parse(data);
+    this.route.paramMap.subscribe(params => {
+      const data = params.get('data');
+      if (data) {
+        const parsedData = JSON.parse(data);
 
-          parsedData.date_release = new Date(parsedData.date_release);
-          parsedData.date_revision = new Date(parsedData.date_revision);
+        parsedData.date_release = new Date(parsedData.date_release);
+        parsedData.date_revision = new Date(parsedData.date_revision);
 
-          parsedData.date_release = formatDate(parsedData.date_release);
-          parsedData.date_revision = formatDate(parsedData.date_revision);
+        parsedData.date_release = formatDateString(parsedData.date_release.toUTCString());
+        parsedData.date_revision = formatDateString(parsedData.date_revision.toUTCString());
 
-          this.product = parsedData;
+        this.product = parsedData;
 
-          this.isEditing = true;
-        }
-      });
+        this.isEditing = true;
+      }
+    });
   }
 
   onSubmit() {
@@ -87,5 +87,5 @@ export class ProductFormComponent implements OnInit {
   getCurrentDate(): string {
     const currentDate = new Date();
     return currentDate.toISOString().split('T')[0];
-}
+  }
 }
