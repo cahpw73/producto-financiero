@@ -56,7 +56,8 @@ export class ProductsComponent implements OnInit {
   onSearchChange(searchTerm: string): void {
     if (searchTerm) {
       this.filteredProducts = this.products.filter(product =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase())
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchTerm.toLowerCase())
       );
     } else {
       this.updateFilteredProducts();
